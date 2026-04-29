@@ -1,0 +1,6 @@
+{
+  "name": "Neon Snake & Beats",
+  "description": "Play Snake while listening to AI-generated beats. Features a custom dark neon aesthetic, music controls, and audio uploading.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

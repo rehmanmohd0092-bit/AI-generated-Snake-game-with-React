@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-mono: "VT323", monospace;
+  --font-display: "Press Start 2P", cursive;
+}
+
+body {
+  background-color: #000;
+  color: #00ffff;
+  font-family: var(--font-mono);
+  margin: 0;
+  overflow-x: hidden;
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0% { opacity: 0.96; }
+  50% { opacity: 1; }
+  100% { opacity: 0.95; }
+}
+
+/* CRT scanlines */
+.crt::after {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 9999;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
+
+/* Glitch text */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before, .glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 #00ffff;
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(10px, 9999px, 30px, 0); }
+  20% { clip: rect(50px, 9999px, 60px, 0); }
+  40% { clip: rect(20px, 9999px, 20px, 0); }
+  60% { clip: rect(90px, 9999px, 100px, 0); }
+  80% { clip: rect(30px, 9999px, 50px, 0); }
+  100% { clip: rect(60px, 9999px, 80px, 0); }
+}
+@keyframes glitch-anim-2 {
+  0% { clip: rect(20px, 9999px, 60px, 0); }
+  20% { clip: rect(60px, 9999px, 90px, 0); transform: translate(-2px, 2px); }
+  40% { clip: rect(10px, 9999px, 40px, 0); }
+  60% { clip: rect(40px, 9999px, 60px, 0); }
+  80% { clip: rect(80px, 9999px, 100px, 0); transform: translate(2px, -2px); }
+  100% { clip: rect(10px, 9999px, 30px, 0); }
+}
+
+/* Screen tearing block */
+.tear-box {
+  animation: screen-tear 6s infinite;
+}
+@keyframes screen-tear {
+  0%, 96% { transform: skew(0deg); }
+  96.5% { transform: skew(3deg) translateX(5px); filter: hue-rotate(-20deg); }
+  97% { transform: skew(-3deg) translateX(-5px); }
+  98% { transform: skew(2deg) translateX(2px); filter: hue-rotate(20deg); }
+  99% { transform: skew(0deg); }
+}
+
+/* Form Styles Override */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 12px;
+  background: #ff00ff;
+  cursor: pointer;
+  margin-top: -8px;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #00ffff;
+}
+
+/* Scrollbar styling */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 16px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #000;
+  border-left: 2px dashed #00ffff;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #ff00ff;
+  border: 2px solid #000;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #fff;
+}
